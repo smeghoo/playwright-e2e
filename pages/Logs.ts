@@ -1,54 +1,52 @@
 import { expect, Locator, Page } from "@playwright/test"
 import helpers from '../test-data/helper'
-import dotenv from 'dotenv'
-dotenv.config();
 
-
-export class LoginPage {
+export class LogsPage {
     //Define Selectors
-    readonly page: Page
-    readonly usernameInput: Locator
-    readonly passwordInput: Locator
-    readonly submitButton: Locator
-    readonly skipButton: Locator
-    readonly globalSelect: Locator
-    readonly confirmButton: Locator
     readonly addData: Locator
     readonly dataOption: Locator
     readonly viewData: Locator
+    readonly toggleNav: Locator
+    readonly discoverBoard: Locator
+    readonly togCategory: Locator
+    readonly togFname: Locator
+    readonly togleId: Locator
+    readonly togMail: Locator
+    readonly mainTable: Locator
 
     //Initialize Selector using constructor
     constructor(page: Page){
-        this.page = page
-        this.usernameInput = page.locator('[data-test-subj="user-name"]')
-        this.passwordInput = page.locator('[data-test-subj="password"]')
-        this.submitButton  = page.locator('[data-test-subj="submit"]')
-        this.skipButton    = page.locator('[data-test-subj="skipWelcomeScreen"]')
-        this.globalSelect  = page.locator('[for="global"]')
-        this.confirmButton = page.locator('[data-test-subj="confirm"]')
         this.addData       = page.locator('[data-test-subj="homeSynopsisLinkhome_tutorial_directory"]')
         this.dataOption    = page.locator('[data-test-subj="addSampleDataSetecommerce"]')
         this.viewData      = page.locator('[data-test-subj="launchSampleDataSetecommerce"]')
+        this.toggleNav     = page.locator('[data-test-subj="toggleNavButton"]')
+        this.discoverBoard = page.locator('[title="Discover"]')
+        this.togCategory   = page.locator('[data-test-subj="fieldToggle-category"]')
+        this.togFname      = page.locator('[data-test-subj="fieldToggle-customer_first_name"]')
+        this.togleId       = page.locator('[data-test-subj="fieldToggle-_id"]')
+        this.togMail       = page.locator('[data-test-subj="fieldToggle-email"]')
+        this.mainTable     = page.locator('[data-test-subj="docTable"]')
+
     }
 
-    /*Define login page methods*/
+    /*Define logs page methods*/
 
-    //visits sign-in page
-    async visit(){
-        await this.page.goto(`${helpers.links.baseURL}`)
-    }
-    //logs into dashboard
-    async login(){
-        await this.usernameInput.fill(`${process.env.od_username}`)
-        await this.passwordInput.fill(`${process.env.od_password}`)
-        await this.submitButton.click()
-        await this.skipButton.click()
-        await this.globalSelect.click()
-        await this.confirmButton.click()
-    }
-
+   //Loads a Sample Dashboard Data Collection
     async loadData(){
         await this.addData.click()
+    //  await this.dataOption.click()  ---Uncomment line for first time use---
         await this.viewData.click()
+    }
+   //Navigates to 'Discover' search for querying log tables
+    async navQuery(){
+        await this.toggleNav.click()
+        await this.discoverBoard.waitFor({state: 'visible'})
+        await this.discoverBoard.click()
+        await this.mainTable.waitFor({state: 'visible'})
+        await this.togCategory.click()
+        await this.togFname.click()
+        await this.togleId.click()
+        await this.togMail.click()
+    //  await this.page.pause()
     }
 }
