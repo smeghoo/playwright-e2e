@@ -23,5 +23,6 @@ test.describe("Login Setup", () => {
      const tableRowField = table.locator('[data-test-subj="docTableField"]')
 
      console.log(await tableRow.allTextContents())
+     
   })
 })
