@@ -13,6 +13,8 @@ export class LogsPage {
     readonly togleId: Locator
     readonly togMail: Locator
     readonly mainTable: Locator
+    readonly tableRow: Locator
+    readonly togGender: Locator
 
     //Initialize Selector using constructor
     constructor(page: Page){
@@ -26,7 +28,8 @@ export class LogsPage {
         this.togleId       = page.locator('[data-test-subj="fieldToggle-_id"]')
         this.togMail       = page.locator('[data-test-subj="fieldToggle-email"]')
         this.mainTable     = page.locator('[data-test-subj="docTable"]')
-
+        this.togGender     = page.locator('[data-test-subj="fieldToggle-customer_gender"]')
+        this.tableRow      = page.locator('[data-test-subj="docTableRow"]')
     }
 
     /*Define logs page methods*/
@@ -47,6 +50,6 @@ export class LogsPage {
         await this.togFname.click()
         await this.togleId.click()
         await this.togMail.click()
-    //  await this.page.pause()
+        await this.togGender.click()
     }
 }
