@@ -1,6 +1,6 @@
 # Playwright E2E Automation
 
-This automation will carry out various E2E tasks and validating table data
+This automation will carry out various E2E tasks and validate table data
 
 # Setup
 
