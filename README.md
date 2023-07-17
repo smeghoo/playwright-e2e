@@ -1,10 +1,10 @@
 # Playwright E2E Automation
 
-This automation will carry out various E2E tasks and validating table data
+This automation will carry out various E2E tasks and validate table data
 
 # Setup
 
-1. `clone` the repository unto your local machine into a folder/location of your choice.
+1. First, `clone` the repository unto your local machine into a folder/location of your choice.
 
 2. From the root of the project folder run `npm install` - this should install all necessary dependencies
 
