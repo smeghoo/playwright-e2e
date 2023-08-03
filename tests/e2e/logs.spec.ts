@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test"
 import { LoginPage } from "../../pages/Login"
 import { LogsPage } from "../../pages/Logs"
-import { searchWebLogs } from "../../test-data/helper"
+import { searchCommerceLog, searchWebLogs } from "../../test-data/helper"
 
 let loginPage: LoginPage
 let logsPage : LogsPage
@@ -17,6 +17,6 @@ test.describe("Validate OpenDashboard Logs", () => {
     await loginPage.login()
     await logsPage.loadData()
     await logsPage.navQuery()
-    await searchWebLogs(page)
+    await searchCommerceLog(page)
   })
 })

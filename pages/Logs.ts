@@ -3,6 +3,7 @@ import helpers from '../test-data/helper'
 
 export class LogsPage {
     //Define Selectors
+    readonly page: Page
     readonly addData: Locator
     readonly dataOption: Locator
     readonly viewData: Locator
@@ -18,9 +19,10 @@ export class LogsPage {
 
     //Initialize Selector using constructor
     constructor(page: Page){
+        this.page = page
         this.addData       = page.locator('[data-test-subj="homeSynopsisLinkhome_tutorial_directory"]')
         this.dataOption    = page.locator('[data-test-subj="addSampleDataSetecommerce"]')
-        this.viewData      = page.locator('[data-test-subj="launchSampleDataSetecommerce"]')
+        this.viewData      = page.locator('[data-test-subj="launchSampleDataSetlogs"]')
         this.toggleNav     = page.locator('[data-test-subj="toggleNavButton"]')
         this.discoverBoard = page.locator('[title="Discover"]')
         this.togCategory   = page.locator('[data-test-subj="fieldToggle-category"]')
@@ -46,10 +48,12 @@ export class LogsPage {
         await this.discoverBoard.waitFor({state: 'visible'})
         await this.discoverBoard.click()
         await this.mainTable.waitFor({state: 'visible'})
-        await this.togCategory.click()
+        await this.page.goto(`${helpers.links.boardURL}`)
+        await this.mainTable.waitFor({state: 'visible'})
+        /*await this.togCategory.click()
         await this.togFname.click()
         await this.togleId.click()
         await this.togMail.click()
-        await this.togGender.click()
+        await this.togGender.click()*/
     }
 }
