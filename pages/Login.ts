@@ -10,6 +10,7 @@ export class LoginPage {
     readonly skipButton: Locator
     readonly globalSelect: Locator
     readonly confirmButton: Locator
+    readonly dismiss: Locator
     
 //Initialize Selector using constructor
 constructor(page: Page){
@@ -20,6 +21,7 @@ constructor(page: Page){
     this.skipButton    = page.locator('[data-test-subj="skipWelcomeScreen"]')
     this.globalSelect  = page.locator('[for="global"]')
     this.confirmButton = page.locator('[data-test-subj="confirm"]')
+    this.dismiss       = page.getByRole('button', { name: 'Dismiss' })
 }
 
     /*Define login page methods*/
@@ -30,10 +32,12 @@ constructor(page: Page){
     }
     //logs into dashboard
     async login(){
+        
         await this.usernameInput.fill(`${process.env.od_username}`)
         await this.passwordInput.fill(`${process.env.od_password}`)
         await this.submitButton.click()
         await this.skipButton.click()
+        await this.dismiss.click()
         await this.globalSelect.click()
         await this.confirmButton.click()
     }

@@ -1,7 +1,7 @@
 import { expect, Locator, Page } from "@playwright/test"
-import helpers from '../test-data/helper'
 
-export class LogsPage {
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
+export class TableLogs {
     //Define Selectors
     readonly page: Page
     readonly addData: Locator
@@ -16,6 +16,7 @@ export class LogsPage {
     readonly mainTable: Locator
     readonly tableRow: Locator
     readonly togGender: Locator
+    
 
     //Initialize Selector using constructor
     constructor(page: Page){
@@ -32,6 +33,7 @@ export class LogsPage {
         this.mainTable     = page.locator('[data-test-subj="docTable"]')
         this.togGender     = page.locator('[data-test-subj="fieldToggle-customer_gender"]')
         this.tableRow      = page.locator('[data-test-subj="docTableRow"]')
+        
     }
 
     /*Define logs page methods*/
@@ -48,12 +50,47 @@ export class LogsPage {
         await this.discoverBoard.waitFor({state: 'visible'})
         await this.discoverBoard.click()
         await this.mainTable.waitFor({state: 'visible'})
-        await this.page.goto(`${helpers.links.boardURL}`)
-        await this.mainTable.waitFor({state: 'visible'})
-        /*await this.togCategory.click()
+        await this.togCategory.click()
         await this.togFname.click()
         await this.togleId.click()
         await this.togMail.click()
-        await this.togGender.click()*/
+        await this.togGender.click()
     }
-}
+
+    async verifyEntries(){
+        await this.mainTable.waitFor({state: 'visible'})
+        await expect (this.mainTable).toContainText('enterprise')
+    }
+
+    async commerceLogsCheck(){
+      await this.mainTable.waitFor({state: 'visible'})
+            
+            for (let i = 0; i < await this.tableRow.count(); i++) {
+              const row = this.tableRow.nth(i)
+              const data = row.locator("td")
+              for (let j = 0; j < await data.count(); j++) {
+                const conA = await data.nth(j).textContent() == 'FEMALE'
+                const conB = await data.nth(j).textContent() == 'MALE'
+                if (conA || conB) {
+                  for (let k = 0; k < await data.count(); k++) {
+                    const stat1 = await data.nth(k).textContent() == 'yasmine@roberson-family.zzz'
+                    const stat2 = await data.nth(k).textContent() == 'thad@padilla-family.zzz'
+                    if(stat1){
+                      console.log(stat1);
+                    }
+                    if(stat2){
+                      console.log(stat2);
+                    }
+                      /*
+                    if(stat2){
+                      await expect(data.nth(k)).not.toContainText('404')
+                      }*/
+                    }
+                    }
+                    else{
+                      console.log('found nothing')
+                    }
+                  }
+                }
+              }
+    }
